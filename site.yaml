@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: db_servers
   roles:
     - db_stack
   vars_files:

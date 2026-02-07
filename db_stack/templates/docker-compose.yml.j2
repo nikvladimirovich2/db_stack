@@ -8,6 +8,7 @@ services:
       POSTGRES_PASSWORD: {{ postgres_pass }}
     volumes:
       - ./scripts:/scripts:ro
+      - /srv/backups/postgres:/backups/postgres:rw
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U {{ db_user }}"]
       interval: 10s
