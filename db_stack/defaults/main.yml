@@ -1,0 +1,9 @@
+---
+postgres_version: 16
+pgbouncer_listen_addr: 127.0.0.1
+pgbouncer_listen_port: 6432
+backup_dir: /backups/postgres
+docker_dir: /opt/docker-compose/scripts
+backup_rotation_days: 7
+db_name: mydb
+db_user: myuser

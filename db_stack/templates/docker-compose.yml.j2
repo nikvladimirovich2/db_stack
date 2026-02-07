@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:{{ postgres_version }}
+    container_name: postgres
+    environment:
+      POSTGRES_DB: {{ db_name }}
+      POSTGRES_USER: {{ db_user }}
+      POSTGRES_PASSWORD: {{ postgres_pass }}
+    volumes:
+      - ./scripts:/scripts:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U {{ db_user }}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgbouncer:
+    image: pgbouncer/pgbouncer:latest
+    container_name: pg_bouncer
+    environment:
+      DATABASES_HOST: postgres
+      DATABASES_PORT: 5432
+      DATABASES_USER: {{ db_user }}
+      DATABASES_PASSWORD: {{ postgres_pass }}
+      PGBOUNCER_LISTEN_PORT: {{ pgbouncer_listen_port }}
+      POOL_MODE: transaction
+    ports:
+      - "{{ pgbouncer_listen_addr }}:{{ pgbouncer_listen_port }}:{{ pgbouncer_listen_port }}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/opt/pgbouncer/pgbouncer", "-V"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

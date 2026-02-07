@@ -1,0 +1,34 @@
+---
+- name: Create backup directory
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    mode: '0755'
+    
+- name: Create docker directory
+  file:
+    path: "{{ docker_dir }}"
+    state: directory
+    mode: '0755'    
+
+- name: Copy docker-compose template
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker-compose/db_stack.yml
+    mode: '0644'
+
+- name: Copy backup script
+  template:
+    src: pg_backup.sh.j2
+    dest: /opt/docker-compose/scripts/pg_backup.sh
+    mode: '0755'
+
+- name: Set up cron for backup
+  cron:
+    name: "Daily Postgres Backup"
+    minute: "0"
+    hour: "2"
+    job: "docker exec postgres bash /scripts/pg_backup.sh"
+
+- name: Start Docker Compose
+  command: docker compose -f /opt/docker-compose/db_stack.yml up -d

@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  roles:
+    - db_stack
+  vars_files:
+    - ./db_stack/vars/vault.yaml
