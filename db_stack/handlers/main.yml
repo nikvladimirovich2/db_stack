@@ -1,3 +1,8 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# handlers file for roles/db_stack
+- name: restart docker compose stack
+  community.docker.docker_compose:
+    project_src: /opt/docker-compose
+    state: present
+    restarted: yes
+    recreate: always
+  register: compose_result
