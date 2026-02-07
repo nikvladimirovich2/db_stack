@@ -19,12 +19,7 @@ services:
     image: pgbouncer/pgbouncer:latest
     container_name: pg_bouncer
     environment:
-      DATABASES_HOST: postgres
-      DATABASES_PORT: 5432
-      DATABASES_USER: {{ db_user }}
-      DATABASES_PASSWORD: {{ postgres_pass }}
       PGBOUNCER_LISTEN_PORT: {{ pgbouncer_listen_port }}
-      POOL_MODE: transaction
     ports:
       - "{{ pgbouncer_listen_addr }}:{{ pgbouncer_listen_port }}:{{ pgbouncer_listen_port }}"
     volumes:
