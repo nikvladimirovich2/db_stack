@@ -4,12 +4,12 @@
     path: "{{ backup_dir }}"
     state: directory
     mode: '0755'
-    
+
 - name: Create docker directory
   file:
     path: "{{ docker_dir }}"
     state: directory
-    mode: '0755'    
+    mode: '0755'
 
 - name: Copy docker-compose template
   template:
@@ -22,6 +22,18 @@
     src: pg_backup.sh.j2
     dest: /opt/docker-compose/scripts/pg_backup.sh
     mode: '0755'
+
+- name: Copy pgbouncer configuration
+  template:
+    src: pgbouncer.ini.j2
+    dest: /opt/docker-compose/pgbouncer.ini
+    mode: '0644'
+
+- name: Copy pgbouncer userlist
+  template:
+    src: userlist.txt.j2
+    dest: /opt/docker-compose/userlist.txt
+    mode: '0644'
 
 - name: Set up cron for backup
   cron:

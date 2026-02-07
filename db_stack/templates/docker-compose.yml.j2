@@ -27,6 +27,9 @@ services:
       POOL_MODE: transaction
     ports:
       - "{{ pgbouncer_listen_addr }}:{{ pgbouncer_listen_port }}:{{ pgbouncer_listen_port }}"
+    volumes:
+      - ./pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./userlist.txt:/etc/pgbouncer/userlist.txt:ro
     depends_on:
       postgres:
         condition: service_healthy
