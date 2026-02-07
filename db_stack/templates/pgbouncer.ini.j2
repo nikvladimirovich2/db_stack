@@ -2,7 +2,7 @@
 mydb = host=postgres port=5432 dbname={{ db_name }} user={{ db_user }} password={{ postgres_pass }}
 
 [pgbouncer]
-listen_port = 6432
+listen_port = {{ pgbouncer_listen_port }}
 listen_addr = *
 auth_type = md5
 auth_file = /etc/pgbouncer/userlist.txt

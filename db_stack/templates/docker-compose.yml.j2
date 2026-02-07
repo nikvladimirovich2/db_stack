@@ -18,8 +18,6 @@ services:
   pgbouncer:
     image: edoburu/pgbouncer:v1.25.1-p0
     container_name: pg_bouncer
-    environment:
-      PGBOUNCER_LISTEN_PORT: {{ pgbouncer_listen_port }}
     ports:
       - "{{ pgbouncer_listen_addr }}:{{ pgbouncer_listen_port }}:{{ pgbouncer_listen_port }}"
     volumes:
