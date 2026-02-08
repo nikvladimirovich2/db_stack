@@ -2,8 +2,8 @@
 
 ## Deployment
 1. Install Ansible on the control node and Docker on the target hosts (refer to official documentation for your distribution)
-2. Copy `db_stack.tar.gz` to your Ansible server or clone the git repository: `git clone https://github.com/nikvladimirovich2/db_stack.git`
-3. Extract the archive with command: `tar -zxf db_stack.tar.gz`
+2. Copy `db_stack.zip` to your Ansible server
+3. Extract the archive with command: `unzip db_stack.zip`
 4. Navigate to the directory: `cd db_stack/`
 5. Edit the PostgreSQL password: `ansible-vault edit db_stack/vars/vault.yaml` (vault password: `12345678`)
 6. (Optional) Change the vault password with command: `ansible-vault rekey db_stack/vars/vault.yaml`
